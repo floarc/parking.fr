@@ -1,0 +1,7 @@
+parameters:
+#    floarc_user.example.class: Floarc\UserBundle\Example
+
+services:
+#    floarc_user.example:
+#        class: %floarc_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

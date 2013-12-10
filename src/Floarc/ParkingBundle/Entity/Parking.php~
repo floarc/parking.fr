@@ -1,0 +1,198 @@
+<?php
+
+namespace Floarc\ParkingBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Parking
+ *
+ * @ORM\Table(name="parking", indexes={@ORM\Index(name="fk_parking_type_place", columns={"id_type_place"}), @ORM\Index(name="fk_parking_type_contrat", columns={"id_type_contrat"}), @ORM\Index(name="fk_parking_type_duree", columns={"id_type_duree_mini"}), @ORM\Index(name="fk_parking_address", columns={"id_address"})})
+ * @ORM\Entity
+ */
+class Parking
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix_mois", type="string", length=45, nullable=true)
+     */
+    private $prixMois;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix_semaine", type="string", length=45, nullable=true)
+     */
+    private $prixSemaine;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix_journee", type="string", length=45, nullable=true)
+     */
+    private $prixJournee;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prix_vente", type="string", length=45, nullable=true)
+     */
+    private $prixVente;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="capacite", type="integer", nullable=true)
+     */
+    private $capacite;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="duree_mini", type="integer", nullable=true)
+     */
+    private $dureeMini;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="prix_negociable", type="boolean", nullable=true)
+     */
+    private $prixNegociable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="acces24", type="boolean", nullable=true)
+     */
+    private $acces24;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="ferme_clef", type="boolean", nullable=true)
+     */
+    private $fermeClef;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="camera", type="boolean", nullable=true)
+     */
+    private $camera;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="garde", type="boolean", nullable=true)
+     */
+    private $garde;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="underground", type="boolean", nullable=true)
+     */
+    private $underground;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="eclaire_nuit", type="boolean", nullable=true)
+     */
+    private $eclaireNuit;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="abrite", type="boolean", nullable=true)
+     */
+    private $abrite;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="acces_handicape", type="boolean", nullable=true)
+     */
+    private $accesHandicape;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_approved", type="boolean", nullable=true)
+     */
+    private $isApproved;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Floarc\ParkingBundle\Entity\Address
+     *
+     * @ORM\ManyToOne(targetEntity="Floarc\ParkingBundle\Entity\Address")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_address", referencedColumnName="id")
+     * })
+     */
+    private $idAddress;
+
+    /**
+     * @var \Floarc\ParkingBundle\Entity\TypeDuree
+     *
+     * @ORM\ManyToOne(targetEntity="Floarc\ParkingBundle\Entity\TypeDuree")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_type_duree_mini", referencedColumnName="id")
+     * })
+     */
+    private $idTypeDureeMini;
+
+    /**
+     * @var \Floarc\ParkingBundle\Entity\TypeContrat
+     *
+     * @ORM\ManyToOne(targetEntity="Floarc\ParkingBundle\Entity\TypeContrat")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_type_contrat", referencedColumnName="id")
+     * })
+     */
+    private $idTypeContrat;
+
+    /**
+     * @var \Floarc\ParkingBundle\Entity\TypePlace
+     *
+     * @ORM\ManyToOne(targetEntity="Floarc\ParkingBundle\Entity\TypePlace")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_type_place", referencedColumnName="id")
+     * })
+     */
+    private $idTypePlace;
+
+
+}

@@ -1,0 +1,116 @@
+<?php
+
+namespace Floarc\ParkingBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Address
+ *
+ * @ORM\Table(name="address")
+ * @ORM\Entity
+ */
+class Address
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address1", type="string", length=225, nullable=true)
+     */
+    private $address1;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address2", type="string", length=255, nullable=true)
+     */
+    private $address2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address3", type="string", length=255, nullable=true)
+     */
+    private $address3;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code_postal", type="string", length=5, nullable=true)
+     */
+    private $codePostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
+     */
+    private $ville;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="departement", type="string", length=255, nullable=true)
+     */
+    private $departement;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="region", type="string", length=255, nullable=true)
+     */
+    private $region;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pays", type="string", length=255, nullable=true)
+     */
+    private $pays;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="lat", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="lng", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $lng;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="alt", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $alt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="modified_at", type="datetime", nullable=true)
+     */
+    private $modifiedAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}

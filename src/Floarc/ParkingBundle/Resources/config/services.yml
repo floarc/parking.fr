@@ -1,0 +1,7 @@
+parameters:
+#    floarc_parking.example.class: Floarc\ParkingBundle\Example
+
+services:
+#    floarc_parking.example:
+#        class: %floarc_parking.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

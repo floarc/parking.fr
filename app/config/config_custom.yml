@@ -1,0 +1,27 @@
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: serializer
+    indexes:
+        website:
+            client: default
+            index_name: website_qa
+            types:
+                parking:
+                    mappings:
+                        #username: { boost: 5 }
+                        #presentation: { boost: 2 }
+                        location: { type: geo_point, boost: 3, lat_lon: true }
+                    persistence:
+                        driver: orm # Le mode de stockage des données à indexer  (orm, mongodb, propel)
+                        model: Elao\UserBundle\Entity\User # L'entité sur laquelle porte le mapping défini ci-dessus
+                        provider: 
+                            query_builder_method: findValidQueryBuilder # Méthode qui va renvoyer les objets à indexer
+                        finder: ~ # Indique que l'on va utiliser un finder (voir la doc officielle pour plus d'infos)
+                        listener: ~ # Indique que l'on va utiliser un listener sur l'entité pour la MàJ de l'index
+fos_user:
+    db_driver: orm #other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Floarc\UserBundle\Entity\User

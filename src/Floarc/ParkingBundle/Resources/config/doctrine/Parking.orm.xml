@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Floarc\ParkingBundle\Entity\Parking" table="parking">
+    <indexes>
+      <index name="fk_parking_type_place" columns="id_type_place"/>
+      <index name="fk_parking_type_contrat" columns="id_type_contrat"/>
+      <index name="fk_parking_type_duree" columns="id_type_duree_mini"/>
+      <index name="fk_parking_address" columns="id_address"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="title" type="string" column="title" length="255" nullable="true"/>
+    <field name="prixMois" type="string" column="prix_mois" length="45" nullable="true"/>
+    <field name="prixSemaine" type="string" column="prix_semaine" length="45" nullable="true"/>
+    <field name="prixJournee" type="string" column="prix_journee" length="45" nullable="true"/>
+    <field name="prixVente" type="string" column="prix_vente" length="45" nullable="true"/>
+    <field name="capacite" type="integer" column="capacite" nullable="true"/>
+    <field name="dureeMini" type="integer" column="duree_mini" nullable="true"/>
+    <field name="prixNegociable" type="boolean" column="prix_negociable" nullable="true"/>
+    <field name="acces24" type="boolean" column="acces24" nullable="true"/>
+    <field name="fermeClef" type="boolean" column="ferme_clef" nullable="true"/>
+    <field name="camera" type="boolean" column="camera" nullable="true"/>
+    <field name="garde" type="boolean" column="garde" nullable="true"/>
+    <field name="underground" type="boolean" column="underground" nullable="true"/>
+    <field name="eclaireNuit" type="boolean" column="eclaire_nuit" nullable="true"/>
+    <field name="abrite" type="boolean" column="abrite" nullable="true"/>
+    <field name="accesHandicape" type="boolean" column="acces_handicape" nullable="true"/>
+    <field name="isApproved" type="boolean" column="is_approved" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true"/>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="true"/>
+    <many-to-one field="idAddress" target-entity="Address">
+      <join-columns>
+        <join-column name="id_address" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idTypeDureeMini" target-entity="TypeDuree">
+      <join-columns>
+        <join-column name="id_type_duree_mini" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idTypeContrat" target-entity="TypeContrat">
+      <join-columns>
+        <join-column name="id_type_contrat" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idTypePlace" target-entity="TypePlace">
+      <join-columns>
+        <join-column name="id_type_place" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
