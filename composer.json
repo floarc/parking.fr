@@ -22,7 +22,10 @@
 		
 		"friendsofsymfony/elastica-bundle": "3.0.*@dev",
         "jms/serializer-bundle": "0.13.*@dev",
-		"friendsofsymfony/user-bundle": "~2.0@dev"
+		"friendsofsymfony/user-bundle": "~2.0@dev",
+		"willdurand/faker-bundle": "@stable",
+		"doctrine/doctrine-fixtures-bundle": "dev-master",
+        "leaseweb/api-caller-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

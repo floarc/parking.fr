@@ -21,6 +21,7 @@ class AppKernel extends Kernel
 			new FOS\ElasticaBundle\FOSElasticaBundle(),
 			new JMS\SerializerBundle\JMSSerializerBundle(),
 			new FOS\UserBundle\FOSUserBundle(),
+        	new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             
         );
 
@@ -29,6 +30,9 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            
+            $bundles[] = new Bazinga\Bundle\FakerBundle\BazingaFakerBundle();
+            $bundles[] = new Lsw\ApiCallerBundle\LswApiCallerBundle();
         }
 
         return $bundles;
