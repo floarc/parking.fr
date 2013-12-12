@@ -32,6 +32,14 @@ class Address
      * @ORM\Column(name="address3", type="string", length=255, nullable=true)
      */
     private $address3;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="numero_rue", type="string", length=50, nullable=true)
+     */
+    private $numero_rue;    
 
     /**
      * @var string

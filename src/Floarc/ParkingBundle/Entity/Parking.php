@@ -168,7 +168,7 @@ class Parking
      *
      * @ORM\ManyToOne(targetEntity="Floarc\ParkingBundle\Entity\Address")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_address", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_address", referencedColumnName="id", onDelete="set null")
      * })
      */
     private $address;
