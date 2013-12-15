@@ -53,6 +53,6 @@ class LoadTypePlaceData extends AbstractFixture implements OrderedFixtureInterfa
 	 */
 	public function getOrder()
 	{
-		return 4; // the order in which fixtures will be loaded
+		return 40; // the order in which fixtures will be loaded
 	}	
 }

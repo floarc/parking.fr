@@ -32,7 +32,7 @@ class LoadTypeUserData extends AbstractFixture implements OrderedFixtureInterfac
 			$manager->persist($userAdmin);
 			$manager->flush();
 		}
-		
+	
 	}
 	
 	/**
@@ -40,6 +40,6 @@ class LoadTypeUserData extends AbstractFixture implements OrderedFixtureInterfac
 	 */
 	public function getOrder()
 	{
-		return 1; // the order in which fixtures will be loaded
+		return 100; // the order in which fixtures will be loaded
 	}	
 }

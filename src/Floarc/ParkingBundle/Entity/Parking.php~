@@ -734,19 +734,4 @@ class Parking
     {
         return $this->idAddress;
     }
-    
-    /**
-     * Return the location for Elasticsearch
-     *
-     * @return array
-     */
-    public function getLocation()
-    {
-    	$location = array();
-    	$location["lat"] = $this->getIdAddress()->getLat();
-    	$location["lon"] = $this->getIdAddress()->getLng();
-    
-    	return $location;
-    }    
-    
 }

@@ -45,6 +45,6 @@ class LoadTypeDureeData extends AbstractFixture implements OrderedFixtureInterfa
 	 */
 	public function getOrder()
 	{
-		return 3; // the order in which fixtures will be loaded
+		return 30; // the order in which fixtures will be loaded
 	}	
 }

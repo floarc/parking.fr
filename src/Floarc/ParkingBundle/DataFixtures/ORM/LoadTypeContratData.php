@@ -25,8 +25,8 @@ class LoadTypeContratData extends AbstractFixture implements OrderedFixtureInter
 			"label" => "Location",
 		);
 		$tabAllTypeContrat[]=array(
-			"code" 	=> "Colocation",
-			"label" => "colocation",
+			"code" 	=> "colocation",
+			"label" => "Colocation",
 		);				
 		
 		foreach ($tabAllTypeContrat as $key => $tabTypeContrat) {
@@ -46,6 +46,6 @@ class LoadTypeContratData extends AbstractFixture implements OrderedFixtureInter
 	 */
 	public function getOrder()
 	{
-		return 2; // the order in which fixtures will be loaded
+		return 20; // the order in which fixtures will be loaded
 	}	
 }
