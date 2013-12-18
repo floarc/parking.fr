@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class TypePlaceRepository extends EntityRepository
 {
+	/**
+	 * Retrieve TypePlace ordered by id
+	 * @return Ambigous <multitype:, \Doctrine\ORM\mixed, mixed, \Doctrine\DBAL\Driver\Statement, \Doctrine\Common\Cache\mixed>
+	 */
+	public function findAllAsArray()
+	{
+		return $this->getEntityManager()
+		->createQuery(
+				'SELECT tp FROM FloarcParkingBundle:TypePlace tp ORDER BY tp.id ASC'
+		)
+		->getResult();
+	}
 }

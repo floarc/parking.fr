@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class TypeContratRepository extends EntityRepository
 {
 	/**
-	 * Retrieve Adress ordered by id
+	 * Retrieve TypeContrat ordered by id
 	 * @return Ambigous <multitype:, \Doctrine\ORM\mixed, mixed, \Doctrine\DBAL\Driver\Statement, \Doctrine\Common\Cache\mixed>
 	 */
 	public function findAllAsArray()

@@ -45,6 +45,8 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		$this->em = $container->get('doctrine.orm.entity_manager');
 		$this->faker = $container->get('faker.generator');
 		$this->types_contrat = array();
+		$this->types_duree = array();
+		$this->types_place = array();
 	}
 		
 	/**
@@ -59,6 +61,13 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		
 		$types_contrat=$this->em->getRepository('FloarcParkingBundle:TypeContrat')->findAllAsArray();
 		$this->types_contrat = $types_contrat;
+
+		$types_duree=$this->em->getRepository('FloarcParkingBundle:TypeDuree')->findAllAsArray();
+		$this->types_duree = $types_duree;
+
+		$types_place=$this->em->getRepository('FloarcParkingBundle:TypePlace')->findAllAsArray();
+		$this->types_place = $types_place;		
+		
 		//$types_duree=$this->em->getRepository('FloarcParkingBundle:TypeDuree')->findAllOrderedById();
 		//$types_place=$this->em->getRepository('FloarcParkingBundle:TypePlace')->findAllOrderedById();
 		/*
@@ -124,8 +133,14 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		$parking->setIsApproved(1);
 		
 		$type_contrat_index = $this->faker->randomNumber(0, (count($this->types_contrat)-1));
-		
 		$parking->setIdTypeContrat($this->types_contrat[$type_contrat_index]);
+		
+		$type_duree_index = $this->faker->randomNumber(0, (count($this->types_duree)-1));
+		$parking->setIdTypeDureeMini($this->types_duree[$type_duree_index]);
+
+		$type_place_index = $this->faker->randomNumber(0, (count($this->types_place)-1));
+		$parking->setIdTypePlace($this->types_place[$type_place_index]);		
+		
 		$parking->setAccesHandicape($this->faker->boolean());
 		
 		$parking->setCreatedAt($nowDateTime);
