@@ -802,16 +802,18 @@ class Parking
 
         return $this;
     }
-
+    
     /**
-     * Get idUser
+     * Get idAddress
      *
-     * @return \Floarc\UserBundle\Entity\User 
+     * @return \Floarc\ParkingBundle\Entity\Address
      */
-    public function getIdUser()
+    public function getIdAddress()
     {
-        return $this->idUser;
-    }
+    	return $this->idAddress;
+    }    
+
+
     
     /**
      * Set idUser
@@ -827,14 +829,14 @@ class Parking
     }
     
     /**
-     * Get idAddress
+     * Get idUser
      *
-     * @return \Floarc\ParkingBundle\Entity\Address
+     * @return \Floarc\UserBundle\Entity\User
      */
-    public function getIdAddress()
+    public function getIdUser()
     {
-    	return $this->idAddress;
-    }    
+    	return $this->idUser;
+    }  
     
     /**
      * Return the location for Elasticsearch
