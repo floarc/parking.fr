@@ -47,6 +47,7 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		$this->types_contrat = array();
 		$this->types_duree = array();
 		$this->types_place = array();
+		$this->types_annonce = array();
 	}
 		
 	/**
@@ -66,7 +67,10 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		$this->types_duree = $types_duree;
 
 		$types_place=$this->em->getRepository('FloarcParkingBundle:TypePlace')->findAllAsArray();
-		$this->types_place = $types_place;		
+		$this->types_place = $types_place;
+
+		$types_annonce=$this->em->getRepository('FloarcParkingBundle:TypeAnnonce')->findAllAsArray();
+		$this->types_annonce = $types_annonce;		
 		
 		//$types_duree=$this->em->getRepository('FloarcParkingBundle:TypeDuree')->findAllOrderedById();
 		//$types_place=$this->em->getRepository('FloarcParkingBundle:TypePlace')->findAllOrderedById();
@@ -131,6 +135,7 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		$parking->setAbrite($this->faker->boolean());
 		$parking->setAccesHandicape($this->faker->boolean());
 		$parking->setIsApproved(1);
+		$parking->setStatus(1);
 		
 		$type_contrat_index = $this->faker->randomNumber(0, (count($this->types_contrat)-1));
 		$parking->setIdTypeContrat($this->types_contrat[$type_contrat_index]);
@@ -140,6 +145,9 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 
 		$type_place_index = $this->faker->randomNumber(0, (count($this->types_place)-1));
 		$parking->setIdTypePlace($this->types_place[$type_place_index]);		
+		
+		$type_annonce_index = $this->faker->randomNumber(0, (count($this->types_annonce)-1));
+		$parking->setIdTypeAnnonce($this->types_annonce[$type_annonce_index]);		
 		
 		$parking->setAccesHandicape($this->faker->boolean());
 		
@@ -160,6 +168,6 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 	 */
 	public function getOrder()
 	{
-		return 50; // the order in which fixtures will be loaded
+		return 70; // the order in which fixtures will be loaded
 	}	
 }

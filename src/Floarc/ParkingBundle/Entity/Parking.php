@@ -3,11 +3,13 @@
 namespace Floarc\ParkingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Floarc\UserBundle\Entity\User as User;
+
 
 /**
  * Parking
  *
- * @ORM\Table(name="parking", indexes={@ORM\Index(name="fk_parking_type_place", columns={"id_type_place"}), @ORM\Index(name="fk_parking_type_contrat", columns={"id_type_contrat"}), @ORM\Index(name="fk_parking_type_duree", columns={"id_type_duree_mini"}), @ORM\Index(name="fk_parking_address", columns={"id_address"})})
+ * @ORM\Table(name="parking", indexes={@ORM\Index(name="fk_parking_type_place", columns={"id_type_place"}), @ORM\Index(name="fk_parking_type_contrat", columns={"id_type_contrat"}), @ORM\Index(name="fk_parking_type_duree", columns={"id_type_duree_mini"}), @ORM\Index(name="fk_parking_type_annonce", columns={"id_type_annonce"}), @ORM\Index(name="fk_parking_address", columns={"id_address"}), @ORM\Index(name="fk_parking_user", columns={"id_user"})})
  * @ORM\Entity(repositoryClass="Floarc\ParkingBundle\Entity\ParkingRepository")
  */
 class Parking
@@ -139,6 +141,13 @@ class Parking
      * @ORM\Column(name="is_approved", type="boolean", nullable=true)
      */
     private $isApproved;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="status", type="integer", nullable=true)
+     */
+    private $status;    
 
     /**
      * @var \DateTime
@@ -185,6 +194,16 @@ class Parking
     private $idTypeDureeMini;
 
     /**
+     * @var \TypeAnnonce
+     *
+     * @ORM\ManyToOne(targetEntity="TypeAnnonce")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_type_annonce", referencedColumnName="id")
+     * })
+     */
+    private $idTypeAnnonce;
+    
+    /**
      * @var \Address
      *
      * @ORM\ManyToOne(targetEntity="Address")
@@ -193,6 +212,17 @@ class Parking
      * })
      */
     private $idAddress;
+    
+
+    /**
+     * @var \Floarc\UserBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="\Floarc\UserBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * })
+     */
+    private $idUser;    
 
 
 
@@ -596,6 +626,30 @@ class Parking
     {
         return $this->isApproved;
     }
+    
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     * @return Parking
+     */
+    public function setStatus($status)
+    {
+    	$this->status = $status;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+    	return $this->status;
+    }    
 
     /**
      * Set createdAt
@@ -688,6 +742,30 @@ class Parking
     {
         return $this->idTypeContrat;
     }
+    
+    /**
+     * Set idTypeAnnonce
+     *
+     * @param \Floarc\ParkingBundle\Entity\TypeAnnonce $idTypeAnnonce
+     * @return Parking
+     */
+    public function setIdTypeAnnonce(\Floarc\ParkingBundle\Entity\TypeAnnonce $idTypeAnnonce = null)
+    {
+    	$this->idTypeAnnonce = $idTypeAnnonce;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get idTypeAnnonce
+     *
+     * @return \Floarc\ParkingBundle\Entity\TypeAnnonce
+     */
+    public function getIdTypeAnnonce()
+    {
+    	return $this->idTypeAnnonce;
+    }    
+    
 
     /**
      * Set idTypeDureeMini
@@ -726,14 +804,37 @@ class Parking
     }
 
     /**
+     * Get idUser
+     *
+     * @return \Floarc\UserBundle\Entity\User 
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+    
+    /**
+     * Set idUser
+     *
+     * @param \Floarc\UserBundle\Entity\User $idUser
+     * @return \Floarc\UserBundle\Entity\User
+     */
+    public function setIdUser(\Floarc\UserBundle\Entity\User $idUser = null)
+    {
+    	$this->idUser = $idUser;
+    
+    	return $this;
+    }
+    
+    /**
      * Get idAddress
      *
-     * @return \Floarc\ParkingBundle\Entity\Address 
+     * @return \Floarc\ParkingBundle\Entity\Address
      */
     public function getIdAddress()
     {
-        return $this->idAddress;
-    }
+    	return $this->idAddress;
+    }    
     
     /**
      * Return the location for Elasticsearch

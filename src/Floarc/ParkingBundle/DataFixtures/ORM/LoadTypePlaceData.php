@@ -18,7 +18,7 @@ class LoadTypePlaceData extends AbstractFixture implements OrderedFixtureInterfa
 		$tabAllTypePlace = array();
 		$tabAllTypePlace[]=array(
 			"code" 	=> "parking_prive",
-			"label" => "Parking Privé",
+			"label" => "Parking PrivÃ©",
 		);
 		$tabAllTypePlace[]=array(
 			"code" 	=> "parking_commercial",
@@ -34,7 +34,7 @@ class LoadTypePlaceData extends AbstractFixture implements OrderedFixtureInterfa
 		);
 		$tabAllTypePlace[]=array(
 				"code" 	=> "allee",
-				"label" => "Allée",
+				"label" => "Allï¿½e",
 		);
 		
 		foreach ($tabAllTypePlace as $key => $tabTypePlace) {
