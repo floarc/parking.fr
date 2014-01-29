@@ -19,7 +19,7 @@ _acme_demo:
     prefix:   /acme
     
 # FloarcTestBundle_voiture:
-_floarc_test:
-    resource: "@FloarcTestBundle/Resources/config/routing/voiture.yml"
-    prefix:   /voiture
+#_floarc_test:
+#    resource: "@FloarcTestBundle/Resources/config/routing/voiture.yml"
+#    prefix:   /voiture
     

@@ -23,7 +23,7 @@ class AppKernel extends Kernel
 			new FOS\UserBundle\FOSUserBundle(),
         	new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
         	new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
-        	new Floarc\TestBundle\FloarcTestBundle(),
+        	//new Floarc\TestBundle\FloarcTestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
