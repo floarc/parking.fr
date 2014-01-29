@@ -1,3 +1,8 @@
 floarc_parking_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: FloarcParkingBundle:Default:index }
+    
+floarc_parking_search:
+    resource: "@FloarcParkingBundle/Controller/SearchController.php"
+    type:     annotation
+    prefix:   /    

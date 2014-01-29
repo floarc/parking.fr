@@ -1,6 +1,14 @@
-floarc_user:
-    resource: "@FloarcUserBundle/Resources/config/routing.yml"
-    prefix:   /
+#floarc_test:
+#    resource: "@FloarcTestBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+#flo_arc_test:
+#    resource: "@FloArcTestBundle/Resources/config/routing.yml"
+#    prefix:   /
+
+#floarc_user:
+#    resource: "@FloarcUserBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 floarc_parking:
     resource: "@FloarcParkingBundle/Resources/config/routing.yml"

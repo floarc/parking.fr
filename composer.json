@@ -6,6 +6,31 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.10.2",
+                "dist": {
+                    "url": "http://code.jquery.com/jquery-1.10.2.js",
+                    "type": "file"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "xilinus/jquery-addresspicker",
+                "version": "2.0",
+                "dist": {
+                    "url": "http://xilinus.com/jquery-addresspicker/src/jquery.ui.addresspicker.js",
+                    "type": "file"
+                }
+            }
+        }        
+                
+    ],    
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "~2.4",
@@ -25,7 +50,18 @@
 		"friendsofsymfony/user-bundle": "~2.0@dev",
 		"willdurand/faker-bundle": "@stable",
 		"doctrine/doctrine-fixtures-bundle": "dev-master",
-        "leaseweb/api-caller-bundle": "*"
+        "leaseweb/api-caller-bundle": "*",
+        
+        "braincrafted/bootstrap-bundle": "~2.0@alpha",
+        "twbs/bootstrap": "v3.0.0",
+        "jquery/jquery":  "1.10.*",
+        "leafo/lessphp": "v0.4.0",
+        
+        "knplabs/knp-paginator-bundle": "dev-master",
+        "knplabs/knp-menu": "~2.0@alpha",
+        "knplabs/knp-menu-bundle": "~2.0@alpha",
+        
+        "xilinus/jquery-addresspicker": "2.*"
     },
     "scripts": {
         "post-install-cmd": [
@@ -33,14 +69,16 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
         ]
     },
     "config": {
