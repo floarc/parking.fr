@@ -1,5 +1,4 @@
-$ app/console doctrine:database:drop --force  &&  app/console doctrine:database:create &&  app/console doctrine:schema:update --dump-sql &&  app/cons
-ole doctrine:schema:update --force 
+$ app/console doctrine:database:drop --force  &&  app/console doctrine:database:create &&  app/console doctrine:schema:update --dump-sql &&  app/console doctrine:schema:update --force 
 
 
 app/console doctrine:database:drop --force  &&  app/console doctrine:database:create &&  app/console doctrine:schema:update --force && app/console doctrine:fixtures:load
@@ -7,3 +6,47 @@ app/console doctrine:database:drop --force  &&  app/console doctrine:database:cr
 
 
 app/console doctrine:database:drop --force && app/console doctrine:database:create && app/console doctrine:schema:update --dump-sql && app/console doctrine:schema:update --force && app/console doctrine:fixtures:load
+
+
+
+GET _search
+{
+    "query": {
+        "filtered": {
+            "query": {
+                "bool": {
+                    "should": [{
+                        "term": {
+                            "title": {
+                                "value": "enim",
+                                "boost": 3
+                            }
+                        }
+                    }]
+                }
+            },
+            "filter": {
+                "bool": {
+                    "must": [{
+                        "term": {
+                            "id_address.lat": "43.2845223"
+                        }
+                    }, {
+                        "numeric_range": {
+                            "created_at": {
+                                "gte": "2013-11-30T23:22:23+01:00"
+                            }
+                        }
+                    }]
+                }
+            }
+        }
+    },
+   "facets": {
+      "capacite": {
+         "statistical": {
+            "field": "capacite"
+         }
+      }
+   }
+}
