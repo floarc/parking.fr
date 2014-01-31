@@ -13,8 +13,23 @@
 
 {% block body %}
     Search Form
-    {{ form(search_form) }}
-
+    
+    <form action="" class="search-form" method="post" {{ form_enctype(search_form) }}>
+    <div>
+    {{ form_errors(search_form.cherche) }}
+    {{ form_label(search_form.cherche) }}
+    {{ form_widget(search_form.cherche) }}
+    </div>
+    
+    <div>
+    {{ form_errors(search_form.address) }}
+    {{ form_label(search_form.address) }}
+    {{ form_widget(search_form.address) }}
+    </div>    
+    
+    {{ form_rest(search_form) }}
+    {#{ form(search_form) }#}
+    <form/>
 
       <div id="map"></div>
       <div id="legend">You can drag and drop the marker to the correct location</div>
@@ -32,6 +47,8 @@
 
 {% javascripts
     '../vendor/xilinus/jquery-addresspicker/jquery.ui.addresspicker.js'
+    
+    '@FloarcParkingBundle/Resources/public/js/search_form.js'
     '@FloarcParkingBundle/Resources/public/js/init_addresspicker.js'
 %}
   <script src="{{ asset_url }}"></script>

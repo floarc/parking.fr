@@ -5,6 +5,7 @@
       regionBias: "fr",
       reverseGeocode: true,
       //updateCallback: showCallback,
+      updateCallback: majResult,
       mapOptions: {
         zoom: 4,
         center: new google.maps.LatLng(46, 2),
@@ -45,6 +46,13 @@
     google.maps.event.addListener(map, 'idle', function(){
       $('#zoom').val(map.getZoom());
     });
+    
+    
+	 function majResult(){
+		 console.clear();
+		 console.log("majResult");
+		 console.log(jQuery("form.search-form").serialize());
+	 }    
     
     
 

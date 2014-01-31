@@ -151,6 +151,8 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		
 		$parking->setAccesHandicape($this->faker->boolean());
 		
+		$parking->setIdAddress($address);
+		
 		$parking->setCreatedAt($nowDateTime);
 		$parking->setUpdatedAt($nowDateTime);
 		
