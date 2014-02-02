@@ -23,9 +23,18 @@ class SearchController extends Controller
 	 * @Route("/", name="search_index")
 	 * @Template()
 	 */	
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-    	$search_form = $this->createForm(new SearchType(), array());
+    	//$dataSearchType=$this->getDataSearchForm($request);
+    	$dataSearchType=array();
+    	if ($request->getMethod() == 'POST') { // Si on a soumis le formulaire
+    		$dataSearchType = $this->getRequest()->request->all();
+    	}else{
+    		$dataSearchType = $this->getRequest()->query->all();
+    	}    	
+    	$search_form = $this->createForm(new SearchType(), $dataSearchType);
+
+    	    	
  	
         return $this->render('FloarcParkingBundle:Default:index.html.twig', 
         	array(
@@ -44,14 +53,140 @@ class SearchController extends Controller
     {
     	
     	$finder = $this->get('fos_elastica.finder.parking.parking');
+    	$type = $this->get('fos_elastica.index.parking.parking');
     	$em = $this->get('doctrine.orm.entity_manager');
-    	$parkingManager = new ParkingManager($em, $finder);
+    	$parkingManager = new ParkingManager($em, $finder, $type);
 //     	echo get_class($parkingManager);
 //     	die();
     	$params = $this->getRequest()->query->all();
     	$return = json_encode($params);
     	
-    	return new Response($return,200,array('Content-Type'=>'application/json'));
+    	//$dataSearchType=$this->getDataSearchForm($request);
+    	$dataSearchType=array();
+    	if ($request->getMethod() == 'POST') { // Si on a soumis le formulaire
+    		$dataSearchType = $this->getRequest()->request->all();
+    	}else{
+    		$dataSearchType = $this->getRequest()->query->all();
+    	}
+
     	
+    	//$search_form = $this->createForm(new SearchType(), $dataSearchType);
+    	$search_form = $this->createForm(new SearchType(), array());
+    	$search_form->handleRequest($request);
+    	
+    	if ($search_form->isValid()) {
+    		// fait quelque chose comme sauvegarder la tâche dans la bdd
+    		//return $this->redirect($this->generateUrl('task_success'));
+    		//$res = $finder->search($dataSearchType);
+    		return new Response($return,200,array('Content-Type'=>'application/json'));
+    		//return new Response($res,200,array('Content-Type'=>'application/json'));
+    	}else{
+    		return new Response("form not valid",200,array('Content-Type'=>'application/json'));
+    	}
+    	
+    }
+    
+    /**
+     * @Route("/search-search", name="search_search")
+     * @Template()
+     */
+    public function searchAction(Request $request)
+    {
+
+    	$finder = $this->get('fos_elastica.finder.parking.parking');
+    	$type = $this->get('fos_elastica.index.parking.parking');
+    	$em = $this->get('doctrine.orm.entity_manager');
+    	//$parkingManager = new ParkingManager($em, $finder, $type);
+    	$parkingManager = $this->get('parking.manager');
+    	    	
+    	//     	echo get_class($parkingManager);
+    	//     	die();
+    	$params = $this->getRequest()->request->all();
+    	$return = json_encode($params);
+    	 
+    	$dataSearchType=array();
+    	if ($request->getMethod() == 'POST') { // Si on a soumis le formulaire
+    		$dataSearchType = $this->getRequest()->request->all();
+    	}else{
+    		$dataSearchType = $this->getRequest()->query->all();
+    	}
+    
+    	 
+    	$search_form = $this->createForm(new SearchType(), $dataSearchType);
+    	//$search_form = $this->createForm(new SearchType(), array());
+    	$search_form->handleRequest($request);
+    	 
+    	if ($search_form->isValid()) {
+    		//echo "valid";
+    		
+    		// fait quelque chose comme sauvegarder la tâche dans la bdd
+    		//return $this->redirect($this->generateUrl('task_success'));
+    		//return new Response($return,200,array('Content-Type'=>'application/json'));
+    		
+
+    		//$res = $parkingManager->search($dataSearchType);
+    		
+    		//$index = $this->get('fos_elastica.index.afsy');
+    		$index = $this->get('fos_elastica.index.parking.parking');
+    		//echo get_class($index);
+    		//die("stop");
+    		$res = $index->search("Saepe");
+
+    		$paginator  = $this->get('knp_paginator');
+    		$pagination = $paginator->paginate(
+    				$res->getResults(),
+    				$this->getRequest()->request->get('page', 1)/*page number*/,
+    				$this->getRequest()->request->get('nb', 5)/*limit per page*/
+    		);    		
+    		
+    		/*
+    		echo $res->count()."<br />";
+    		echo "<pre>";
+    		print_r($res->getResults());
+    		echo "</pre><br />";
+    		echo "-----------------------------------<br />";
+    		echo "<pre>";
+    		print_r($pagination);
+    		echo "</pre><br />";
+    		echo "-----------------------------------<br />";    		
+    		die("stop");
+    		*/
+    		    		
+    		//return new Response($return,200,array('Content-Type'=>'application/json'));
+    		//return new Response($res,200,array('Content-Type'=>'application/json'));
+
+    		
+    		return $this->render('FloarcParkingBundle:Default:index.html.twig',
+    				array(
+    						'pagination' => $pagination,
+    						'search_form' => $search_form->createView(),
+    						 
+    				)
+    		);    		
+    		
+    		
+    	}else{
+    		echo "not valid";
+    		return new Response("form not valid",200,array('Content-Type'=>'application/json'));
+    	}
+    	 
     }    
+
+    /**
+     * @Route("/", name="search_index")
+     * @Template()
+     */
+    /*
+    public function getDataSearchForm(Request $request)
+    {
+    	$dataSearchType=array();
+    	if ($request->getMethod() == 'POST') { // Si on a soumis le formulaire
+    		$dataSearchType = $this->getRequest()->request->all();
+    	}else{
+    		$dataSearchType = $this->getRequest()->query->all();
+    	}
+ 
+    	return $dataSearchType;
+    } 
+    */   
 }

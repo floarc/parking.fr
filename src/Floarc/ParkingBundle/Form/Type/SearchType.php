@@ -18,6 +18,7 @@ class SearchType extends AbstractType
 		  'label'  		=> "Je cherche"
 		))
 		->add('address', 'text')
+		->add('submit', 'submit')
 		->add('locality', 'hidden')
 		->add('district', 'hidden')
 		->add('state', 'hidden')

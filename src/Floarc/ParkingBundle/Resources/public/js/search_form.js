@@ -11,6 +11,7 @@
 		 
 		 
 		   $.ajax({
+			   	  type: "POST",
 		          // chargement du fichier externe monfichier-ajax.php 
 		          url      : "/ajax-search",
 		          // Passage des données au fichier externe (ici le nom cliqué)  

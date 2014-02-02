@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Floarc\ParkingBundle\FloarcParkingBundle(),
 			new Floarc\UserBundle\FloarcUserBundle(),
 			new FOS\ElasticaBundle\FOSElasticaBundle(),
+        	new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 			new JMS\SerializerBundle\JMSSerializerBundle(),
 			new FOS\UserBundle\FOSUserBundle(),
         	new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),

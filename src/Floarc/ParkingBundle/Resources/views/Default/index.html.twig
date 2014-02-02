@@ -14,7 +14,7 @@
 {% block body %}
     Search Form
     
-    <form action="" class="search-form" method="post" {{ form_enctype(search_form) }}>
+    <form action="/app_dev.php/search-search" class="search-form" method="post" {{ form_enctype(search_form) }}>
     <div>
     {{ form_errors(search_form.cherche) }}
     {{ form_label(search_form.cherche) }}
@@ -34,7 +34,12 @@
       <div id="map"></div>
       <div id="legend">You can drag and drop the marker to the correct location</div>
       
+
+{% if pagination is defined %}
+    {% include 'FloarcParkingBundle:Search:search.html.twig' %}
+{% endif %}
       
+     
 {% endblock %}
 
 

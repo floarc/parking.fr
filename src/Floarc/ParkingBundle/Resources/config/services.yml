@@ -1,7 +1,13 @@
 parameters:
 #    floarc_parking.example.class: Floarc\ParkingBundle\Example
+     floarc_parking.manager.class: Floarc\ParkingBundle\Manager\ParkingManager
 
 services:
 #    floarc_parking.example:
 #        class: %floarc_parking.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    floarc_parking.manager:
+        class: %floarc_parking.manager.class%
+        arguments: [@doctrine.orm.entity_manager, @fos_elastica.finder.parking.parking, @fos_elastica.index.parking.parking]
+    parking.manager:
+        alias: floarc_parking.manager 
