@@ -17,6 +17,12 @@ use Floarc\ParkingBundle\Entity\Parking;
 
 use Floarc\ParkingBundle\Manager\ParkingManager;
 
+use Elastica\Query\Match;
+use Elastica\Query\Text;
+use Elastica\Query\Bool;
+use Elastica\Query;
+
+
 class SearchController extends Controller
 {
 	/**
@@ -124,13 +130,53 @@ class SearchController extends Controller
     		//return new Response($return,200,array('Content-Type'=>'application/json'));
     		
 
-    		//$res = $parkingManager->search($dataSearchType);
+    		$res = $parkingManager->search($dataSearchType);
     		
     		//$index = $this->get('fos_elastica.index.afsy');
-    		$index = $this->get('fos_elastica.index.parking.parking');
+    		//$index = $this->get('fos_elastica.index.parking.parking');
     		//echo get_class($index);
     		//die("stop");
-    		$res = $index->search("Saepe");
+    		
+    		
+    		
+    		//$res = $index->search("Saepe");
+    		
+    		
+    		//$q = new Query(array());
+    		
+    		
+    		//$q = new Bool();
+    		//$qText = new Text();
+    		//$qText->setParam("title","Saepe");
+    		//$q->addShould($qText);    		
+    		
+    		//$q = new Query($qText);
+    		
+    		/*
+    		echo "<pre>";
+    		print_r($qText->toArray());
+    		echo "</pre>";
+    		echo "-----------------------------------<br />";
+    		echo "<pre>";
+    		print_r(json_encode($qText->toArray()));
+    		echo "</pre>";
+    		*/
+    		
+    		/*
+    		echo "<pre>";
+    		print_r($q->toArray());
+    		echo "</pre>";
+    		echo "-----------------------------------<br />";
+    		echo "<pre>";
+    		print_r(json_encode($q->toArray()));
+    		echo "</pre>";
+    		//echo "-----------------------------------<br />";
+    		die("stop");
+    		*/
+    		
+    		///$res = $index->search($qText);
+    		
+    		    		
 
     		$paginator  = $this->get('knp_paginator');
     		$pagination = $paginator->paginate(

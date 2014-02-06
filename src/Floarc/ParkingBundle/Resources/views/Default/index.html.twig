@@ -16,11 +16,17 @@
     
     <form action="/app_dev.php/search-search" class="search-form" method="post" {{ form_enctype(search_form) }}>
     <div>
-    {{ form_errors(search_form.cherche) }}
-    {{ form_label(search_form.cherche) }}
-    {{ form_widget(search_form.cherche) }}
+    {{ form_errors(search_form.type_annonce) }}
+    {{ form_label(search_form.type_annonce) }}
+    {{ form_widget(search_form.type_annonce) }}
     </div>
     
+    <div>
+    {{ form_errors(search_form.type_contrat) }}
+    {{ form_label(search_form.type_contrat) }}
+    {{ form_widget(search_form.type_contrat) }}
+    </div>    
+
     <div>
     {{ form_errors(search_form.address) }}
     {{ form_label(search_form.address) }}

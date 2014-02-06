@@ -10,14 +10,26 @@ class SearchType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-		->add('cherche', 'choice', array(
-  		  'choices'     => array('1' => 'Parking', '2' => 'Locataire'),
+		->add('type_annonce', 'choice', array(
+  		  'choices'     => array('offre' => 'trouver un parking', '2' => 'proposer un parking'),
     	  'required'    => false,
 		  'expanded'    => true,
 		  'empty_value' => false,
-		  'label'  		=> "Je cherche"
+		  'label'  		=> "Je souhaite"
 		))
-		->add('address', 'text')
+		
+		
+		->add('type_contrat', 'choice', array(
+				'choices'     => array('vente' => 'à la vente', 'location' => 'en location' , 'colocation' => 'en colocation'),
+				'required'    => false,
+				'expanded'    => true,
+				'empty_value' => false,
+				//'label'  		=> "Je souhaite"
+				'label'  		=> false
+		))		
+		->add('address', 'text', array(
+    	  'required'    => false,
+		))
 		->add('submit', 'submit')
 		->add('locality', 'hidden')
 		->add('district', 'hidden')
