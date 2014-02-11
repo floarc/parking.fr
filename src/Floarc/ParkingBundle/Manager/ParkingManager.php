@@ -35,12 +35,6 @@ class ParkingManager
 		
 		$elasticaQuery = new \Elastica\Query();
 		
-		
-	
-		echo "<pre>";
-		print_r($data);
-		echo "</pre>";		
-		
 		$filters = $this->defaultFilters();
 
 		// Add filter to the search object.
@@ -67,24 +61,25 @@ class ParkingManager
 			
 			$filters->addFilter($elasticaFilterTypeContrat);
 		}
-		
-		
-		$filters    = new \Elastica\Filter\BoolAnd();
-		
+	
 		
 		
 		if (isset($data["lat"]) && !empty($data["lat"]) && isset($data["lng"]) && !empty($data["lng"]) ) {
 			
 
 			try {
+				$geoFilter = new \Elastica\Filter\GeoDistance('location', array('lat' => $data['lat'], 'lon' => $data['lng']), '10km');
+				$filters->addFilter($geoFilter);
 				
+			
+				$script = "doc['location'].distanceInKm(lat,lon)";
+				$params = array('lat' => $data['lat'], 'lon' => $data['lng']);
+				$elasticaScript = new \Elastica\Script($script, $params);
+				$elasticaQuery->addScriptField("distance", $elasticaScript);
+				$elasticaQuery->setFields(array("_source"));
 				
-
-				//$geoFilter = new \Elastica_Filter_GeoDistance('id_address.lat', $data['lat'], $data['lng'], '10km');
-				//$geoFilter = new \Elastica\Filter\GeoDistance('id_address.lat', array('lat' => $data['lat'], 'lon' => $data['lat']), '10km');
-				
-				
-				//$filters->addFilter($geoFilter);
+				//$filters->addFilter($scriptFilter);
+				//('location', array('lat' => $data['lat'], 'lon' => $data['lng']), '10km');
 
 				//$elasticaQuery = new \Elastica_Query_Filtered($elasticaQuery, $geoFilter);
 				//$elasticaQuery = new \Elastica\Query\Filtered($elasticaQuery, $geoFilter);
@@ -92,20 +87,25 @@ class ParkingManager
 			}
 		}
 		
-		//echo $elasticaQuery->__toString();
-// 		echo "<pre>";
-// 		print_r($elasticaQuery);
-// 		echo "</pre>";
 		
-		$elasticaQuery->setFilter($filters);
 		
-		echo "<pre>";
-		print_r(json_encode($elasticaQuery->toArray()));
-		echo "</pre>";		
+		$sort = array(
+			"_geo_distance" => array(
+								"location" => $data['lat'].",".$data['lng'],
+								"order" => "asc",
+								"unit" => "km"
+							)
+		);
+		$elasticaQuery->addSort($sort);
+		
+		
+		
+///////////////////////////////////////////////////////////
 		
 		//$data = $this->finder->find($elasticaQuery);
 		$data = $this->type->search($elasticaQuery);
-
+		
+		
 		return $data;
 	}
 	

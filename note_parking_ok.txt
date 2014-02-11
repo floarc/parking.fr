@@ -1,0 +1,70 @@
+DELETE parking_index
+GET _mapping
+PUT /parking_index
+ 
+
+GET _mapping
+GET http://localhost:9200/parking_index/_mapping
+
+
+GET http://localhost:9200/_search
+{
+   "query": {
+      "match_all": {}
+   }
+}
+
+
+GET http://localhost:9200/parking_index/_search
+{
+    
+    "sort" : [
+        {
+            "_geo_distance" : {
+                "location" : [43, 5.35],
+                "order" : "asc",
+                "unit" : "km"
+            }
+        }
+    ],    
+   "query": {
+      "match_all": {}
+      
+      
+   },
+   "filter": {
+      "geo_distance": {
+         "distance": "30km",
+         "location": {
+            "lat": 43,
+            "lon": 5.35
+         }
+      }
+   }
+}
+
+
+
+
+
+
+GET http://localhost:9200/parking_index/_search
+{
+   "fields": [
+      "_source"
+   ],
+   "script_fields": {
+      "distance": {
+         "params": {
+            "lat": 43,
+            "lon": 5.35
+         },
+         "script": "doc[\u0027location\u0027].distanceInKm(lat,lon)"
+      }
+   }
+}
+
+
+
+
+

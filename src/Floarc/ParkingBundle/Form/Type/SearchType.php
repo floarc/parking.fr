@@ -15,7 +15,8 @@ class SearchType extends AbstractType
     	  'required'    => false,
 		  'expanded'    => true,
 		  'empty_value' => false,
-		  'label'  		=> "Je souhaite"
+		  'label'  		=> "Je souhaite",
+		  'data' 	    => "offre"
 		))
 		
 		
@@ -24,11 +25,13 @@ class SearchType extends AbstractType
 				'required'    => false,
 				'expanded'    => true,
 				'empty_value' => false,
-				//'label'  		=> "Je souhaite"
-				'label'  		=> false
-		))		
+				//'label'  	  => "Je souhaite"
+				'label'  	  => false,
+				'data' 	      => "location"
+		))
 		->add('address', 'text', array(
     	  'required'    => false,
+		  'data' 	=> "172 Rue du Rouet, 13008 Marseille, France"
 		))
 		->add('submit', 'submit')
 		->add('locality', 'hidden')

@@ -14,7 +14,9 @@ fos_elastica:
                         #username: { boost: 5 }
                         #presentation: { boost: 2 }
                         title: { boost: 2 }
+                        #loc: { type: geo_point, boost: 3, lat_lon: true }
                         location: { type: geo_point, boost: 3, lat_lon: true }
+                        id_address.location: { type: geo_point, boost: 3, lat_lon: true }
                         capacite: { boost: 1 }
                     persistence:
                         driver: orm # Le mode de stockage des données Ã  indexer  (orm, mongodb, propel)

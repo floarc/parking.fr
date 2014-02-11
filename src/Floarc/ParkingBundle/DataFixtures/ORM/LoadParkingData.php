@@ -85,6 +85,12 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		
 		foreach ($addresses as $key => $address) {
 			$parking = $this->createParking($address, $manager);
+			
+// 			echo "Location:\n";
+// 			echo "<pre>";
+// 			print_r($parking->getLocation());
+// 			echo "</pre>";
+// 			echo "\n";
 			echo ($key+1)." parking created!\n";
 		}
 		
@@ -118,7 +124,7 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		$typeContrat = $this->em->find('TypeContrat', $this->faker->randomNumber(1, 5))
 		$parking->setIdTypeContrat($typeContrat);		
 		*/
-		$parking->setTitle($this->faker->sentence(200));
+		$parking->setTitle($this->faker->sentence(5));
 		$parking->setPrixMois($this->faker->randomNumber(80, 120));
 		$parking->setPrixSemaine($this->faker->randomNumber(20, 50));
 		$parking->setPrixJournee($this->faker->randomNumber(7, 15));
@@ -152,13 +158,14 @@ class LoadParkingData extends AbstractFixture implements OrderedFixtureInterface
 		$parking->setAccesHandicape($this->faker->boolean());
 		
 		$parking->setIdAddress($address);
+		$parking->setLocation($address->getLat().",".$address->getLon());
 		
 		$parking->setCreatedAt($nowDateTime);
 		$parking->setUpdatedAt($nowDateTime);
 		
 		$manager->persist($parking);
 		$manager->flush();
-		//unset($street_number,$route,$postal_code,$locality,$departement,$country,$lat,$lng);				
+		//unset($street_number,$route,$postal_code,$locality,$departement,$country,$lat,$lon);				
 				
 		
 		return $parking;

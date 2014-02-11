@@ -182,8 +182,13 @@ class SearchController extends Controller
     		$pagination = $paginator->paginate(
     				$res->getResults(),
     				$this->getRequest()->request->get('page', 1)/*page number*/,
-    				$this->getRequest()->request->get('nb', 5)/*limit per page*/
-    		);    		
+    				$this->getRequest()->request->get('nb', 50)/*limit per page*/
+    		);    	
+    		/*	
+    		echo "<pre>";
+    		print_r($pagination);
+    		echo "</pre><br />";
+    		*/
     		
     		/*
     		echo $res->count()."<br />";

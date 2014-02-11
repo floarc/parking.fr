@@ -225,6 +225,15 @@ class Parking
     private $idUser;    
 
 
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="location", type="string", length=255, nullable=true)
+     */
+    private $location;
+    
+    
 
     /**
      * Get id
@@ -838,18 +847,38 @@ class Parking
     	return $this->idUser;
     }  
     
+
+    
     /**
-     * Return the location for Elasticsearch
+     * Set location
      *
-     * @return array
+     * @param string $location
+     * @return Parking
+     */
+    public function setLocation($location)
+    {
+    	if(!empty($location)){
+    		$this->location = $location;
+    	}else{
+    		if(is_objet($this->getIdAddress())){
+    			$this->location = $this->getIdAddress()->getLat().",".$this->getIdAddress()->getLon();
+    		}else{
+    			$this->location = "";
+    		}
+    	}
+    	return $this;
+    }
+        
+    
+    /**
+     * Return the location 
+     *
+     * @return string
      */
     public function getLocation()
     {
-    	$location = array();
-    	$location["lat"] = $this->getIdAddress()->getLat();
-    	$location["lon"] = $this->getIdAddress()->getLng();
-    
-    	return $location;
-    }    
-    
+    	return $this->location;
+    }
+
+ 
 }

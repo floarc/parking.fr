@@ -101,9 +101,16 @@ class Address
     /**
      * @var float
      *
-     * @ORM\Column(name="lng", type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="lon", type="float", precision=10, scale=0, nullable=true)
      */
-    private $lng;
+    private $lon;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="location", type="string", length=255, nullable=true)
+     */
+    private $location;    
 
     /**
      * @var float
@@ -392,27 +399,58 @@ class Address
     }
 
     /**
-     * Set lng
+     * Set lon
      *
-     * @param float $lng
+     * @param float $lon
      * @return Address
      */
-    public function setLng($lng)
+    public function setLon($lon)
     {
-        $this->lng = $lng;
+        $this->lon = $lon;
 
         return $this;
     }
 
     /**
-     * Get lng
+     * Get lon
      *
      * @return float 
      */
-    public function getLng()
+    public function getLon()
     {
-        return $this->lng;
+        return $this->lon;
     }
+    
+    /**
+     * Set location
+     *
+     * @param string $location
+     * @return Parking
+     */
+    public function setLocation($location)
+    {
+    	$this->location = "";
+    	if(!empty($location)){
+    		$this->location = $location;
+    	}else{
+    		$lat = $this->getLat();
+    		$lon = $this->getLon();
+    		if(!empty($lat) && !empty($lon)){
+    			$this->location = $lat.",".$lon;
+    		}
+    	}
+    	return $this;
+    }    
+    
+    /**
+     * Return the location
+     *
+     * @return string
+     */
+    public function getLocation()
+    {
+    	return $this->location;
+    }    
 
     /**
      * Set alt

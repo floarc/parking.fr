@@ -5,7 +5,7 @@ app/console doctrine:database:drop --force  &&  app/console doctrine:database:cr
 
 
 
-app/console doctrine:database:drop --force && app/console doctrine:database:create && app/console doctrine:schema:update --dump-sql && app/console doctrine:schema:update --force && app/console doctrine:fixtures:load
+app/console doctrine:database:drop --force && app/console doctrine:database:create && app/console doctrine:schema:update --dump-sql && app/console doctrine:schema:update --force && app/console doctrine:fixtures:load && app/console fos:elastica:populate && app/console cache:clear
 
 
 
@@ -46,6 +46,38 @@ GET _search
       "capacite": {
          "statistical": {
             "field": "capacite"
+         }
+      }
+   }
+}
+
+GET http://localhost:9200/parking_index/parking/_mapping
+
+GET _search
+{
+   "query": {
+      "match_all": {}
+   }
+}
+
+
+
+
+GET _search
+{
+   "query": {
+      "filtered": {
+         "query": {
+            "match_all": {}
+         },
+         "filter": {
+            "geo_distance": {
+               "distance": "200km",
+               "location": {
+                  "lat": 40,
+                  "lng": -70
+               }
+            }
          }
       }
    }

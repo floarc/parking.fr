@@ -56,8 +56,8 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
 			$lat_range = 5600000;
 			$lat = (43000000+rand(0, $lat_range))/1000000;
 			
-			$lng_range = 7000000;
-			$lng = (-1000000+(rand(0, $lng_range)))/1000000;
+			$lon_range = 7000000;
+			$lon = (-1000000+(rand(0, $lon_range)))/1000000;
 			
 			
 			
@@ -65,14 +65,16 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
 			//43.306500 ; 5.364400		range		-57900			
 			//43.266300 ; 5.427900		range		-63500
 			
+			//43.28,5.4
+			
 			$lat_range = 57900;
 			$lat = (43306500-rand(0, $lat_range))/1000000;
 				
-			$lng_range = 63500;
-			$lng = (5364400-(rand(0, $lng_range)))/1000000;			
+			$lon_range = 63500;
+			$lon = (5364400-(rand(0, $lon_range)))/1000000;			
 			
 			
-			$resCreateAddress = $this->createAddress($lat, $lng, $manager);
+			$resCreateAddress = $this->createAddress($lat, $lon, $manager);
 			
 			///if($this->createAddress(43.276814, 5.393883, $manager)!=false){
 			//echo "test num�".$t."\n";
@@ -92,20 +94,19 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
 	/**
 	 * Create an entity address 
 	 * @param string $lat
-	 * @param string $lng
+	 * @param string $lon
 	 * @param ObjectManager $manager
 	 * @return \Floarc\ParkingBundle\Entity\Address|NULL
 	 */
-	protected function createAddress($lat, $lng, $manager)
+	protected function createAddress($lat, $lon, $manager)
 	{
 		
+
 		$return=false; 
-		$url_json = "http://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&sensor=true";
-		$url_xml = "http://maps.googleapis.com/maps/api/geocode/xml?latlng=$lat,$lng&sensor=true";
+		$url_json = "http://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lon&sensor=true";
+		$url_xml = "http://maps.googleapis.com/maps/api/geocode/xml?latlng=$lat,$lon&sensor=true";
 		$output_json = $this->container->get('api_caller')->call(new HttpGetHtml($url_json, null ));
 		$output_xml = $this->container->get('api_caller')->call(new HttpGetHtml($url_xml, null ));
-		
-
 		
 		
 
@@ -118,10 +119,12 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
 		if($status=="OK"){
 			$results = $json_output->results;
 			foreach ($results as $key => $result) {
-				unset($street_number,$route,$postal_code,$locality,$departement,$country,$lat,$lng);
+				unset($street_number,$route,$postal_code,$locality,$departement,$country,$lat,$lon);
 				$address_components = $result->address_components;
 				//$address_components = $first_result->filter('address_component');
 				$address = new Address();
+
+				
 				foreach ($address_components as $key => $address_component) {
 					
 					
@@ -206,12 +209,12 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
 				$location = $geometry->location;
 				
 				//$lat = $first_result->filter('geometry > location > lat')->text();
-				//$lng = $first_result->filter('geometry > location > lng')->text();
+				//$lon = $first_result->filter('geometry > location > lng')->text();
 				
 				//echo "adresse=>  ".$route." ".$street_number." ".$street_number." ".$departement."\n";
 				
 				$lat = $location->lat;
-				$lng = $location->lng;				
+				$lon = $location->lng;				
 				
 				if(isset($street_number) && isset($route)){
 					$address->setAddress1($street_number." ".$route);
@@ -220,9 +223,13 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
 				if(isset($lat)){
 					$address->setLat($lat);
 				}
-				if(isset($lng)){
-					$address->setLng($lng);
+				if(isset($lon)){
+					$address->setLon($lon);
 				}
+				
+				if(isset($lat) && !empty($lat) && isset($lon) && !empty($lon) ){
+					$address->setLocation($lat.",".$lon);
+				}				
 				
 				$nowDateTime = new \DateTime("now", new \DateTimeZone("Europe/Paris"));
 				$address->setCreatedAt($nowDateTime);
@@ -239,7 +246,7 @@ class LoadAddressData extends AbstractFixture implements OrderedFixtureInterface
 					$manager->flush();
 					return $address;
 				}
-				unset($street_number,$route,$postal_code,$locality,$departement,$country,$lat,$lng);
+				unset($street_number,$route,$postal_code,$locality,$departement,$country,$lat,$lon);
 
 			}
 
