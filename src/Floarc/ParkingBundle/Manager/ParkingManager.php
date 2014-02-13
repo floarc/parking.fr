@@ -29,7 +29,7 @@ class ParkingManager
 		return $this->em->getRepository('FloarcParkingBundle:User');
 	}
 
-	public function search($data)
+	public function search($data, $limit = 0)
 	{
 		
 		
@@ -68,15 +68,20 @@ class ParkingManager
 			
 
 			try {
-				$geoFilter = new \Elastica\Filter\GeoDistance('location', array('lat' => $data['lat'], 'lon' => $data['lng']), '10km');
+
+// 				echo "<pre>";
+// 				print_r($data);
+// 				echo "</pre><br />";
+				$geoFilter = new \Elastica\Filter\GeoDistance('id_address.location', array('lat' => $data['lat'], 'lon' => $data['lng']), '200km');
 				$filters->addFilter($geoFilter);
 				
-			
-				$script = "doc['location'].distanceInKm(lat,lon)";
+				
+				$script = "doc['id_address.location'].distanceInKm(lat,lon)";
 				$params = array('lat' => $data['lat'], 'lon' => $data['lng']);
 				$elasticaScript = new \Elastica\Script($script, $params);
 				$elasticaQuery->addScriptField("distance", $elasticaScript);
 				$elasticaQuery->setFields(array("_source"));
+				
 				
 				//$filters->addFilter($scriptFilter);
 				//('location', array('lat' => $data['lat'], 'lon' => $data['lng']), '10km');
@@ -91,7 +96,7 @@ class ParkingManager
 		
 		$sort = array(
 			"_geo_distance" => array(
-								"location" => $data['lat'].",".$data['lng'],
+								"id_address.location" => $data['lat'].",".$data['lng'],
 								"order" => "asc",
 								"unit" => "km"
 							)
@@ -100,12 +105,21 @@ class ParkingManager
 		
 		
 		
+		$elasticaQuery->setFilter($filters);
+		
 ///////////////////////////////////////////////////////////
-		
+		//$elasticaQuery = new \Elastica\Query\MatchAll();
 		//$data = $this->finder->find($elasticaQuery);
-		$data = $this->type->search($elasticaQuery);
+		$data = $this->type->search($elasticaQuery,$limit);
 		
+// 		echo "<pre>";
+// 		print_r($elasticaQuery->toArray());
+// 		echo "</pre><br />";
+
 		
+// 		echo "<pre>";
+// 		print_r($data->getTotalHits());
+// 		echo "</pre><br />";		
 		return $data;
 	}
 	

@@ -13,28 +13,32 @@
 
 {% block body %}
     Search Form
-    
-    <form action="/app_dev.php/search-search" class="search-form" method="post" {{ form_enctype(search_form) }}>
-    <div>
+
+    <form action="{{ path('search_search') }}" class="search-form" method="post" {{ form_enctype(search_form) }}>
+    <div class="col-md-3">
     {{ form_errors(search_form.type_annonce) }}
     {{ form_label(search_form.type_annonce) }}
     {{ form_widget(search_form.type_annonce) }}
     </div>
     
-    <div>
+    <div class="col-md-3">
     {{ form_errors(search_form.type_contrat) }}
     {{ form_label(search_form.type_contrat) }}
     {{ form_widget(search_form.type_contrat) }}
     </div>    
 
-    <div>
+    <div class="col-md-5">
     {{ form_errors(search_form.address) }}
     {{ form_label(search_form.address) }}
     {{ form_widget(search_form.address) }}
-    </div>    
+    </div>
     
+    <div class="col-md-1">
     {{ form_rest(search_form) }}
     {#{ form(search_form) }#}
+    </div> 
+    
+
     <form/>
 
       <div id="map"></div>

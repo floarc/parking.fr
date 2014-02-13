@@ -131,7 +131,12 @@ class SearchController extends Controller
     		
 
     		$res = $parkingManager->search($dataSearchType);
+    		$totalHits = $res->getTotalHits();
     		
+//     		echo "<pre>";
+//     		print_r($totalHits);
+//     		echo "</pre>";
+    		$res = $parkingManager->search($dataSearchType, $totalHits);
     		//$index = $this->get('fos_elastica.index.afsy');
     		//$index = $this->get('fos_elastica.index.parking.parking');
     		//echo get_class($index);
@@ -177,18 +182,20 @@ class SearchController extends Controller
     		///$res = $index->search($qText);
     		
     		    		
-
+//     		echo "<pre>";
+//     		print_r(count($res->getResults()));
+//     		echo "</pre><br />";
+    		
+    		
     		$paginator  = $this->get('knp_paginator');
     		$pagination = $paginator->paginate(
     				$res->getResults(),
     				$this->getRequest()->request->get('page', 1)/*page number*/,
-    				$this->getRequest()->request->get('nb', 50)/*limit per page*/
+    				$this->getRequest()->request->get('nb', 1000)/*limit per page*/
     		);    	
-    		/*	
-    		echo "<pre>";
-    		print_r($pagination);
-    		echo "</pre><br />";
-    		*/
+    			
+
+    		
     		
     		/*
     		echo $res->count()."<br />";
