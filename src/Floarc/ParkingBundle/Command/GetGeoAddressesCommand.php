@@ -172,6 +172,11 @@ class GetGeoAddressesCommand extends Command
 								
 						case "administrative_area_level_2":
 							$ad_area_lv2 = $address_component->long_name;
+							if(!empty($ad_area_lv2)){
+								$geoaddress->setDepartement($ad_area_lv2);
+								echo "ad_area_lv2 =".$ad_area_lv2."\n";
+							}							
+							
 							break;
 								
 						case "administrative_area_level_1":

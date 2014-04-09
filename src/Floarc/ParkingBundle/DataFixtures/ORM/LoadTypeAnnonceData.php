@@ -41,6 +41,6 @@ class LoadTypeAnnonceData extends AbstractFixture implements OrderedFixtureInter
 	 */
 	public function getOrder()
 	{
-		return 40; // the order in which fixtures will be loaded
+		return 50; // the order in which fixtures will be loaded
 	}	
 }

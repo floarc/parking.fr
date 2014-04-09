@@ -133,7 +133,14 @@ class Address
      */
     private $modifiedAt;
 
-
+    /**
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+    	return "address = ".$this->id;
+    }
 
     /**
      * Get id

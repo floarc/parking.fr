@@ -130,13 +130,13 @@ class SearchController extends Controller
     		//return new Response($return,200,array('Content-Type'=>'application/json'));
     		
 
-    		$res = $parkingManager->search($dataSearchType);
+    		$res = $parkingManager->searchFromData($dataSearchType);
     		$totalHits = $res->getTotalHits();
     		
 //     		echo "<pre>";
 //     		print_r($totalHits);
 //     		echo "</pre>";
-    		$res = $parkingManager->search($dataSearchType, $totalHits);
+    		$res = $parkingManager->searchFromData($dataSearchType, $totalHits);
     		//$index = $this->get('fos_elastica.index.afsy');
     		//$index = $this->get('fos_elastica.index.parking.parking');
     		//echo get_class($index);
